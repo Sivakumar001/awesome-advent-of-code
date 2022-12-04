@@ -8,7 +8,7 @@ int main(){
     ifstream Myfile("input.txt");
 
     vector<vector<pair<int,int>>> FileData;
-    // dont ask me how this works
+    // data segregation in c++ is kinda tough ngl
     if(Myfile.is_open()){
         string line;
         while(getline(Myfile, line)){
@@ -50,6 +50,7 @@ int main(){
         auto LineData = FileData[i];
         pair<int,int> start, end;
         start = LineData[0], end=LineData[1];
+        // check whether startptr is inside endptr and viceversa
         if((end.first<=start.first && end.second>=start.second) ||
             (start.first<=end.first && start.second>=end.second))
         {
@@ -61,11 +62,11 @@ int main(){
     int overlap=0;
     for(int i=0;i<FileData.size();i++){
         auto LineData = FileData[i];
-        sort(begin(LineData), end(LineData));
-        if(LineData[1].first <= LineData[0].second){
+        sort(begin(LineData), end(LineData)); // sort both the ptr
+        if(LineData[1].first <= LineData[0].second){ // check whether end of 1st overlaps start of 2nd
             overlap++;
         }
     }
-    cout << overlap << endl;
+    cout << overlap << endl; // part 2
 
 }
