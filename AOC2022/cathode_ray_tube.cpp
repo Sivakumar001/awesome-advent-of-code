@@ -5,6 +5,28 @@
 
 using namespace std;
 
+//////////////// part 1
+int solve1(vector<pair<string, int>> fileData){
+    int cycles = 1;
+    int value = 1;
+    int questions = 20;
+    int total = 0;
+
+    for(auto it: fileData){
+        int cur_cycle = (it.first=="noop"?1:2);
+        for(int i=0;i<cur_cycle;i++){
+            if(cycles==questions){
+                total += questions*value;
+                questions += 40;
+            }
+            cycles++;
+        }
+        value+=it.second;
+    }
+    return total;
+}
+
+/////////////////// part 2
 void solve2(vector<pair<string, int>> fileData){
     int cycles = 0;
     int values = 0;
@@ -28,7 +50,7 @@ void solve2(vector<pair<string, int>> fileData){
 
         values = values+it.second;
     }
-    cout << "answer" << endl;
+    cout << "\n" << endl;
     for(auto it: ans){
         for(auto itr: it){
             cout << itr;
@@ -37,25 +59,6 @@ void solve2(vector<pair<string, int>> fileData){
     }
 }
 
-int solve1(vector<pair<string, int>> fileData){
-    int cycles = 1;
-    int value = 1;
-    int questions = 20;
-    int total = 0;
-
-    for(auto it: fileData){
-        int cur_cycle = (it.first=="noop"?1:2);
-        while(cur_cycle--){
-            if(cycles==questions){
-                total += questions*value;
-                questions += 40;
-            }
-            cycles++;
-        }
-        value+=it.second;
-    }
-    return total;
-}
 
 int main(){
     ifstream Myfile("inp.txt");
@@ -74,6 +77,6 @@ int main(){
             fileData.push_back({command, val});
         }
     }
-    // cout << solve1(fileData) << endl;
+    cout << solve1(fileData) << endl;
     solve2(fileData);
 }
